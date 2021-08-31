@@ -1,7 +1,7 @@
 import { Schema, model, Document } from 'mongoose';
 import options, { preUpdateMiddleware } from '../lib/mongoose_options';
 
-interface Demo extends Document{
+export interface Demo extends Document {
   name: string;
 
   type: string,
@@ -11,7 +11,7 @@ interface Demo extends Document{
   updatedAt?: Date,
 }
 
-const schema = new Schema<Demo>(
+export const DemoSchema = new Schema<Demo>(
   {
     name: { type: String },
     type: { type: String },
@@ -21,6 +21,6 @@ const schema = new Schema<Demo>(
   { ...options, collection: 'demo' },
 );
 
-schema.pre(new RegExp('^.*update.*', 'i'), preUpdateMiddleware);
+DemoSchema.pre(new RegExp('^.*update.*', 'i'), preUpdateMiddleware);
 
-export default model<Demo>('demo', schema);
+export const DemoModel = model<Demo>('demo', DemoSchema);

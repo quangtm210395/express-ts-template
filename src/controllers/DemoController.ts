@@ -1,5 +1,5 @@
 
-import { JsonController, Post, Get, Body, Param } from 'routing-controllers';
+import { JsonController, Post, Get, Body, Param, Patch } from 'routing-controllers';
 import { OpenAPI } from 'routing-controllers-openapi';
 import { DemoService } from '../services/DemoService';
 import { DemoBody } from './req/DemoBodyReq';
@@ -17,5 +17,10 @@ export class DemoController {
   @Post('/')
   public async create(@Body() body: DemoBody) {
     return this.demoService.create(body.name, body.type);
+  }
+
+  @Patch('/:id')
+  public async update(@Param('id') id: string, @Body() body: DemoBody) {
+    return this.demoService.update(id, body.name, body.type);
   }
 }

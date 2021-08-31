@@ -22,6 +22,7 @@ export const preUpdateMiddleware: PreMiddlewareFunction<Query<any, any>> = funct
   });
   update.$inc = update.$inc || {};
   update.$inc.version = 1;
+  next();
 };
 
 export default options;

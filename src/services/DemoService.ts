@@ -16,4 +16,9 @@ export class DemoService {
     const demo = await this.demoRepository.getByName(name);
     return demo.toJSON();
   }
+
+  async update(id: string, name: string, type: string) {
+    const updated = await this.demoRepository.updateDemo(id, name, type);
+    return updated.toJSON();
+  }
 }
