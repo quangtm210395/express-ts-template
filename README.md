@@ -1,5 +1,5 @@
 
-<h1 align="center">Express Typescript Boilerplate</h1>
+<h1 align="center">Express TS Boilerplate</h1>
 
 
 <p align="center">
@@ -21,7 +21,7 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 - **Clear Structure** with different layers such as controllers, services, repositories, models, middlewares...
 - **Easy Exception Handling** thanks to [routing-controllers](https://github.com/typestack/routing-controllers).
 - **Smart Validation** thanks to [class-validator](https://github.com/typestack/class-validator) with some nice annotations.
-- **Custom Validators** to validate your request even better and stricter. [custom-validation-classes](https://github.com/pleerock/class-validator#custom-validation-classes).
+- **Mongoose** to simply query to mongodb models. [mongoose](https://github.com/Automattic/mongoose).
 - **API Documentation** thanks to [swagger](http://swagger.io/) and [routing-controllers-openapi](https://github.com/epiphone/routing-controllers-openapi).
 - **API Monitoring** thanks to [express-status-monitor](https://github.com/RafalWilinski/express-status-monitor).
 - **Basic Security Features** thanks to [Helmet](https://helmetjs.github.io/).
@@ -29,7 +29,6 @@ Try it!! We are happy to hear your feedback or any kind of new features.
 ## ❯ Table of Contents
 
 - [Getting Started](#-getting-started)
-- [Scripts and Tasks](#-scripts-and-tasks)
 - [Debugger in VSCode](#-debugger-in-vscode)
 - [API Routes](#-api-routes)
 - [Project Structure](#-project-structure)
@@ -57,7 +56,7 @@ Install yarn globally
 yarn global add yarn
 ```
 
-Install a MySQL database.
+Install a Mongodb database.
 
 > If you work with a mac, we recommend to use homebrew for the installation.
 
@@ -72,7 +71,7 @@ Create a new database with the name you have in your `.env`-file.
 Then setup your application environment.
 
 ```bash
-yarn run setup
+yarn install
 ```
 
 > This installs all dependencies with yarn. After that it migrates the database and seeds some test data into it. So after that your development environment is ready to use.
@@ -82,7 +81,7 @@ yarn run setup
 Go to the project dir and start your app with this yarn script.
 
 ```bash
-yarn start serve
+yarn dev
 ```
 
 > This starts a local server using `nodemon`, which will watch for any file changes and will restart the server according to these changes.
@@ -91,31 +90,23 @@ yarn start serve
 
 ## ❯ Scripts and Tasks
 
-All script are defined in the `package-scripts.js` file, but the most important ones are listed here.
-
 ### Install
 
 - Install all dependencies with `yarn install`
 
 ### Linting
 
-- Run code quality analysis using `yarn start lint`. This runs tslint.
+- Run code quality analysis using `yarn lint`. This runs tslint.
 - There is also a vscode task for this called `lint`.
-
-### Tests
-
-- Run the unit tests using `yarn start test` (There is also a vscode task for this called `test`).
-- Run the integration tests using `yarn start test.integration`.
-- Run the e2e tests using `yarn start test.e2e`.
 
 ### Running in dev mode
 
-- Run `yarn start serve` to start nodemon with ts-node, to serve the app.
+- Run `yarn dev` to start nodemon with ts-node, to serve the app.
 - The server address will be displayed to you as `http://0.0.0.0:3000`
 
 ### Building the project and run it
 
-- Run `yarn start build` to generated all JavaScript files from the TypeScript sources (There is also a vscode task for this called `build`).
+- Run `yarn build` to generated all JavaScript files from the TypeScript sources (There is also a vscode task for this called `build`).
 - To start the builded app located in `dist` use `yarn start`.
 
 ## ❯ Debugger in VSCode
@@ -144,19 +135,17 @@ The swagger and the monitor route can be altered in the `.env` file.
 | **.vscode/**                      | VSCode tasks, launch configuration and some other settings |
 | **dist/**                         | Compiled source files will be placed here |
 | **src/**                          | Source files |
-| **src/controllers/**          | REST API Controllers |
-| **src/controllers/requests**  | Request classes with validation rules if the body is not equal with a model |
-| **src/controllers/responses** | Response classes or interfaces to type json response bodies  |
-| **src/errors/**               | Custom HttpErrors like 404 NotFound |
-| **src/middlewares/**          | Express Middlewares like helmet security features |
-| **src/models/**               | Mongoose Models |
-| **src/repo/**                 | Repository layer |
-| **src/services/**             | Service layer |
-| **src/subscribers/**          | Event subscribers |
-| **src/validators/**           | Custom validators, which can be used in the request classes |
-| **src/decorators/**               | Custom decorators like @Logger & @EventDispatch |
-| .env.example                      | Environment configurations |
-| .env.test                         | Test environment configurations |
+| **src/controllers/**              | REST API Controllers |
+| **src/controllers/req**           | Request classes with validation rules if the body is not equal with a model |
+| **src/controllers/res**           | Response classes or interfaces to type json response bodies  |
+| **src/errors/**                   | Custom HttpErrors like 404 NotFound |
+| **src/middlewares/**              | Express Middlewares like helmet security features |
+| **src/models/**                   | Mongoose Models |
+| **src/repo/**                     | Repository layer |
+| **src/services/**                 | Service layer |
+| **src/decorators/**               | Custom decorators like @Logger |
+| .env.example                       | Environment configurations |
+| .env.test                           | Test environment configurations |
 
 
 ## ❯ Logging
@@ -172,7 +161,7 @@ import { Logger as WinstonLogger } from 'winston';
 export class UserService {
 
     constructor(
-        @Logger(__filename) private log: WinstonLogger
+        @Logger(module) private log: WinstonLogger
     ) { }
 
     ...
@@ -269,16 +258,12 @@ DB_PORT=3306
 | [class-transformer](https://github.com/pleerock/class-transformer) | Proper decorator-based transformation / serialization / deserialization of plain javascript objects to class constructors |
 | [Helmet](https://helmetjs.github.io/) | Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help! |
 | [Auth0 API Documentation](https://auth0.com/docs/api/management/v2) | Authentification service |
-| [Jest](http://facebook.github.io/jest/) | Delightful JavaScript Testing Library for unit and e2e tests |
-| [supertest](https://github.com/visionmedia/supertest) | Super-agent driven library for testing node.js HTTP servers using a fluent API |
-| [nock](https://github.com/node-nock/nock) | HTTP mocking and expectations library |
 | [swagger Documentation](http://swagger.io/) | API Tool to describe and document your api. |
 
 
 ## ❯ Related Projects
 
 - [Microsoft/TypeScript-Node-Starter](https://github.com/Microsoft/TypeScript-Node-Starter) - A starter template for TypeScript and Node with a detailed README describing how to use the two together.
-- [Auth0 Mock Server](https://github.com/hirsch88/auth0-mock-server) - Useful for e2e testing or faking an oAuth server
 
 ## ❯ License
 

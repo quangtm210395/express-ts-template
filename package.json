@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "license": "MIT",
+  "author": {
+    "name": "HikariQ",
+    "email": "quangtm210395@gmail.com",
+    "url": "https://github.com/quangtm210395"
+  },
+  "repository": {
+    "url": "https://github.com/quangtm210395/express-ts-template",
+    "type": "git"
+  },
   "scripts": {
     "dev": "nodemon",
     "start": "node dist/index",
@@ -39,7 +48,7 @@
     "winston": "^3.3.3"
   },
   "engines": {
-    "node": ">=12.20"
+    "node": ">=10.22"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
